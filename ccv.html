@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abish R. - Full Stack Web Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .button-container {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-download {
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+        }
+        
+        .btn-download:hover {
+            background: linear-gradient(135deg, #4a6491, #2c3e50);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-print {
+            background: white;
+            color: #2c3e50;
+            border: 2px solid #2c3e50;
+        }
+        
+        .btn-print:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        .resume-container {
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .resume-header {
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .resume-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .resume-header h2 {
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            padding: 40px;
+        }
+        
+        .left-column, .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #4a6491;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: #4a6491;
+        }
+        
+        .education-item, .internship-item {
+            margin-bottom: 20px;
+        }
+        
+        .education-item h3, .internship-item h3 {
+            color: #2c3e50;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        
+        .education-details, .internship-details {
+            color: #666;
+            font-size: 1rem;
+            margin: 5px 0;
+        }
+        
+        .skills-list {
+            list-style-type: none;
+        }
+        
+        .skills-list li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .skills-list li:before {
+            content: "•";
+            color: #4a6491;
+            font-weight: bold;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+        
+        .technical-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .tech-category {
+            margin-bottom: 20px;
+        }
+        
+        .tech-category h4 {
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .tech-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tech-tag {
+            background: #eef2f7;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .personal-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .detail-item {
+            margin-bottom: 12px;
+        }
+        
+        .detail-item strong {
+            color: #2c3e50;
+        }
+        
+        .declaration {
+            font-style: italic;
+            color: #555;
+            text-align: justify;
+            line-height: 1.8;
+        }
+        
+        .signature {
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .signature p {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .technical-grid, .personal-details {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .resume-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .resume-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .button-container {
+                justify-content: center;
+            }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Professional Resume</h1>
+            <div class="button-container">
+                <button class="btn btn-download" id="downloadBtn">
+                    <i class="fas fa-download"></i> Download PDF
+                </button>
+                <button class="btn btn-print" id="printBtn">
+                    <i class="fas fa-print"></i> Print Resume
+                </button>
+            </div>
+        </div>
+        
+        <div class="resume-container" id="resume">
+            <div class="resume-header">
+                <h1>ABISH R.</h1>
+                <h2>FULL STACK WEB DEVELOPER</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 7200003661</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>abish7811@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>14/5SC, NellMila, Palapallam P.O.-629159</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="main-content">
+                <div class="left-column">
+                    <div class="section">
+                        <h2 class="section-title">Profile</h2>
+                        <p>Highly skilled Full Stack Web Developer with a strong background in JavaScript, Python, HTML/CSS, and SQL. Proven ability to lead a team of developers and deliver projects on time.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <h2 class="section-title">Education</h2>
+                        <div class="education-item">
+                            <h3>B.A. ENGLISH LITERATURE</h3>
+                            <div class="education-details">
+                                <p>Literature, Creative Writing, Linguistics, Communication Studies</p>
+                                <p>CCPA: [7.3] EQUIVALENT PERCENTILE-73%</p>
+                                <p>Lekshmiipuram College of Arts and Science, Lekshmiipuram.</p>
+                                <p>Manommaniam Sundaranar University, Tirunelveli.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h2 class="section-title">Internship</h2>
+                        <div class="internship-item">
+                            <h3>AK INFOPARK PRIVATE LIMITED</h3>
+                            <div class="internship-details">
+                                <p>Full Stack (JS) Developer</p>
+                                <p>Duration: 6 months</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h2 class="section-title">Skills</h2>
+                        <ul class="skills-list">
+                            <li>Excellent Communication Skills</li>
+                            <li>Team Leadership</li>
+                            <li>Working Knowledge with Computers and Internet</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section">
+                        <h2 class="section-title">Declaration</h2>
+                        <p class="declaration">I do hereby declare that all the above furnished information is true to the best of my knowledge and belief.</p>
+                        <div class="signature">
+                            <div>
+                                <p>Place:</p>
+                                <p>Date:</p>
+                            </div>
+                            <p>Abish R.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="section">
+                        <h2 class="section-title">Personal Particulars</h2>
+                        <div class="personal-details">
+                            <div class="detail-item">
+                                <strong>Date of birth:</strong> 11.08.2001
+                            </div>
+                            <div class="detail-item">
+                                <strong>Gender:</strong> Male
+                            </div>
+                            <div class="detail-item">
+                                <strong>Marital Status:</strong> Single
+                            </div>
+                            <div class="detail-item">
+                                <strong>Nationality:</strong> Indian
+                            </div>
+                            <div class="detail-item">
+                                <strong>Religion:</strong> Christian
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h2 class="section-title">Technical Knowledge</h2>
+                        <div class="technical-grid">
+                            <div class="tech-category">
+                                <h4>Frontend</h4>
+                                <div class="tech-items">
+                                    <span class="tech-tag">HTML</span>
+                                    <span class="tech-tag">CSS</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">React</span>
+                                </div>
+                            </div>
+                            
+                            <div class="tech-category">
+                                <h4>Backend</h4>
+                                <div class="tech-items">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Flask</span>
+                                </div>
+                            </div>
+                            
+                            <div class="tech-category">
+                                <h4>Database</h4>
+                                <div class="tech-items">
+                                    <span class="tech-tag">SQL</span>
+                                    <span class="tech-tag">MySQL</span>
+                                </div>
+                            </div>
+                            
+                            <div class="tech-category">
+                                <h4>Languages</h4>
+                                <div class="tech-items">
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">Python</span>
+                                </div>
+                            </div>
+                            
+                            <div class="tech-category">
+                                <h4>Tools</h4>
+                                <div class="tech-items">
+                                    <span class="tech-tag">Git</span>
+                                    <span class="tech-tag">GitHub</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h2 class="section-title">Languages</h2>
+                        <ul class="skills-list">
+                            <li>Tamil</li>
+                            <li>English</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast">Resume downloaded successfully!</div>
+    
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+           
+            const element = document.getElementById('resume');
+            const opt = {
+                margin: 10,
+                filename: 'Abish_R_FullStack_Developer.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(element).save();
+                
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        });
+        
+        document.getElementById('printBtn').addEventListener('click', function() {
+            window.print();
+        });
+    </script>
+</body>
+</html>
